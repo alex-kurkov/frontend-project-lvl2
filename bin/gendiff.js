@@ -25,12 +25,10 @@ const parcedObjects = gendiff.args
 
 const object1 = parcedObjects[0];
 const object2 = parcedObjects[1];
+const format = gendiff.format || 'text';
 console.log(object1);
 console.log(object2);
-const diff = getDifference(object1, object2);
+const diff = getDifference(object1, object2, format);
 console.log(diff);
 
-/* console.log(gendiff.args);
-console.log('Options: ', gendiff.opts());
-console.log('Remaining arguments: ', gendiff.args); */
 export default diff;

@@ -1,4 +1,4 @@
-export default (obj1, obj2) => {
+export default (obj1, obj2, format) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   const uniqueKeys = keys2.reduce((acc, i) => {
@@ -23,7 +23,14 @@ export default (obj1, obj2) => {
     return acc;
     }, {});
 
-  return stringify(result); 
+  switch (format) {
+    case 'text':
+      return stringify(result);
+    case 'json':
+      return JSON.stringify(result);
+    default:
+      return result;
+  }
 }
 
 const stringify = (object) => {

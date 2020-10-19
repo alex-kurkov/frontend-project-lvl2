@@ -2,6 +2,7 @@
 import commander from 'commander';
 import fs from 'fs';
 import path from 'path';
+import getDifference from '../src/index.js';
 const gendiff = commander.program;
 
 gendiff
@@ -17,12 +18,19 @@ gendiff
 gendiff.parse(process.argv);
   // eslint-disable-next-line no-undef
 const __workingDirectory = process.cwd();
-const pathToFile1 = path.resolve(__workingDirectory, gendiff.args.shift());
-const pathToFile2 = path.resolve(__workingDirectory, gendiff.args.shift());
+const parcedObjects = gendiff.args
+  .map((arg) => path.resolve(__workingDirectory, path.normalize(arg)))
+  .map((path) => fs.readFileSync(path))
+  .map((file) => JSON.parse(file))
 
+const object1 = parcedObjects[0];
+const object2 = parcedObjects[1];
+console.log(object1);
+console.log(object2);
+const diff = getDifference(object1, object2);
+console.log(diff);
 
-console.log(pathToFile2)
-
-console.log(gendiff.args);
+/* console.log(gendiff.args);
 console.log('Options: ', gendiff.opts());
-console.log('Remaining arguments: ', gendiff.args);
+console.log('Remaining arguments: ', gendiff.args); */
+export default diff;

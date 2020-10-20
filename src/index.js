@@ -1,6 +1,6 @@
 import fileParser from './fileParser.js';
 
-export default (path1, path2, formatOutput) => {
+export default (path1, path2, formatOutput = 'text') => {
   const obj1 = fileParser(path1, 'json');
   const obj2 = fileParser(path2, 'json');
   const keys1 = Object.keys(obj1);
@@ -28,20 +28,17 @@ export default (path1, path2, formatOutput) => {
     }, {});
 
   switch (formatOutput) {
-    case 'text':
-      return stringify(result);
     case 'json':
       return JSON.stringify(result, null, ' ');
     default:
-      return stringify(result);
+      return customStringify(result);
   }
 }
 
-const stringify = (object) => {
+const customStringify = (object) => {
   const entries = Object.entries(object);
-  const outputString = `{\n${entries.map(entry => {
-    const [key, value] = entry;
-    return `${key}: ${value}`;
-  }).join('\n')}\n}`;
+  const lines = entries
+    .map(([key, value]) => `${key}: ${value}`)
+  const outputString = `{\n${lines.join('\n')}\n}`;
   return outputString;
 }

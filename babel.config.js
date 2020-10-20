@@ -1,3 +1,5 @@
+/*eslint no-undef: "error"*/
+/*eslint-env node*/
 
 const presets = [
   ['@babel/preset-env', {
@@ -6,5 +8,3 @@ const presets = [
     }}]]
 
 module.exports = { presets };
-
-

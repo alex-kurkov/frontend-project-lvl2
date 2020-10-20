@@ -13,3 +13,8 @@ jobs:
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
+        with:
+          node-version: '14.x'
+        - run: make install
+        - run: make lint
+        - run: make test

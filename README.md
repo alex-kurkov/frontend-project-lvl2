@@ -5,7 +5,7 @@
 ![Actions Status](/workflows/hexlet-check/badge.svg)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/85854609ef666849c490/maintainability)](https://codeclimate.com/github/alex-kurkov/frontend-project-lvl1/maintainability)
-![Node.js CI](https://github.com/alex-kurkov/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)
+![hexlet-check](https://github.com/alex-kurkov/frontend-project-lvl2/workflows/hexlet-check/badge.svg)
 
 
 

@@ -23,7 +23,7 @@
     "jest-cli": "^26.6.0"
   },
   "scripts": {
-    "test": "npx -n --experimental-vm-modules jest --watch"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "jest": {
     "testEnvironment": "node",

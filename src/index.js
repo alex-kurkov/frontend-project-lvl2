@@ -1,4 +1,8 @@
-export default (obj1, obj2, format) => {
+import fileParser from './fileParser.js';
+
+export default (path1, path2, formatOutput) => {
+  const obj1 = fileParser(path1, 'json');
+  const obj2 = fileParser(path2, 'json');
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   const uniqueKeys = keys2.reduce((acc, i) => {
@@ -23,7 +27,7 @@ export default (obj1, obj2, format) => {
     return acc;
     }, {});
 
-  switch (format) {
+  switch (formatOutput) {
     case 'text':
       return stringify(result);
     case 'json':

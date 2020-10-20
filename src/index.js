@@ -31,9 +31,9 @@ export default (path1, path2, formatOutput) => {
     case 'text':
       return stringify(result);
     case 'json':
-      return JSON.stringify(result);
+      return JSON.stringify(result, null, ' ');
     default:
-      return result;
+      return stringify(result);
   }
 }
 

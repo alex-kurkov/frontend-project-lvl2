@@ -1,12 +1,13 @@
 import fs from 'fs';
 
-export default (path, format = 'json') => {
- const file = fs.readFileSync(path);
+export default (path, inputFormat) => {
+  if (!path) return null;
+  const data = fs.readFileSync(path, 'utf-8')
 
-  switch (format) {
-    case 'json':
-      return JSON.parse(file);
+  switch (inputFormat) {
+    case 'yml':
+      return;
     default:
-      return file
+      return JSON.parse(data);
   }
 }

@@ -33,9 +33,12 @@ import genDiff from 'gendiff';
 ```
 
 ## Getting help
-run 
 ```bash
-`gendiff -h` or `gendiff --help`
+gendiff --help
+```
+or
+```bash
+gendiff -h
 ```
 ## Usage
 When used on command line type

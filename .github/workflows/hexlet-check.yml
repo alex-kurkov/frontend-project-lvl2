@@ -18,6 +18,5 @@ jobs:
           make install
         env:
           CI: true
-
       - name: run linter
         - run: make lint

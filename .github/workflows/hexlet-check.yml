@@ -13,8 +13,15 @@ jobs:
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
+
+        uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-        - run: make install
+      - name: npm install, build
+        run: |
+          make install
+        env:
+          CI: true
+
+      - name: run linter
         - run: make lint
-        - run: make test

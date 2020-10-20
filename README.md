@@ -16,7 +16,7 @@ Gendiff is a simple application comparing and showing difference between 2 confi
 Gendiff can be used either as a js-library or as a Cli-utility run on Node.js
 
 1. **Installation**
-- Clone repository to your directory with command git clone https://github.com/alex-kurkov/frontend-project-lvl2.git
+- Clone repository to your directory with command `git clone https://github.com/alex-kurkov/frontend-project-lvl2.git`
 - Run `cd frontend-project-lvl2/`
 - Run `npm install`
 - Run `npm link`

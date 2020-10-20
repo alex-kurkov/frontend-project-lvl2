@@ -11,7 +11,7 @@ gendiff
   .name('gendiff')
   .usage('[options]')
   .helpOption('-h, --help', 'output usage information')
-  .option('-f, --format [type]', 'output format', 'json')
+  .option('-f, --format [type]', 'output format', 'text')
   .arguments('<path1> <path2>')
 
   // eslint-disable-next-line no-undef
@@ -26,8 +26,8 @@ const parcedObjects = gendiff.args
 const object1 = parcedObjects[0];
 const object2 = parcedObjects[1];
 const format = gendiff.format || 'text';
-console.log(object1);
-console.log(object2);
+/* console.log(object1);
+console.log(object2); */
 const diff = getDifference(object1, object2, format);
 console.log(diff);
 

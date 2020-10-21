@@ -14,7 +14,7 @@ gendiff
   .name('gendiff')
   .usage('[options]')
   .helpOption('-h, --help', 'output usage information')
-  .option('-f, --format [type]', 'output format', 'text')
+  .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<path1> <path2>')
 
 

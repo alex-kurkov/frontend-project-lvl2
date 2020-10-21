@@ -1,11 +1,12 @@
 import fileParser from './fileParser.js';
+import formatter from './formatter.js';
 
 const uniq = (arr1, arr2) => arr1.reduce((acc, i) => {
   if (!acc.includes(i)) return [...acc, i];
   return acc;
 }, [...arr2]);
 
-export default (path1, path2, formatOutput = 'text') => {
+export default (path1, path2, formatOutput = 'stylish') => {
   const obj1 = fileParser(path1);
   const obj2 = fileParser(path2);
   const keys1 = Object.keys(obj1);
@@ -29,18 +30,5 @@ export default (path1, path2, formatOutput = 'text') => {
     return acc;
     }, {});
 
-  switch (formatOutput) {
-    case 'json':
-      return JSON.stringify(result, null, ' ');
-    default:
-      return customStringify(result);
-  }
-}
-
-const customStringify = (object) => {
-  const entries = Object.entries(object);
-  const lines = entries
-    .map(([key, value]) => `${key}: ${value}`)
-  const outputString = `{\n${lines.join('\n')}\n}`;
-  return outputString;
+    return formatter(result, formatOutput);
 }

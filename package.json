@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "![Actions Status](/workflows/hexlet-check/badge.svg)",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "js-yaml": "^3.14.0"
+  },
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
@@ -23,7 +25,7 @@
     "jest-cli": "^26.6.0"
   },
   "scripts": {
-    "test": "npx -n --experimental-vm-modules jest"
+    "test": "npx -n --experimental-vm-modules jest --watch"
   },
   "jest": {
     "testEnvironment": "node",

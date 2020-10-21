@@ -59,6 +59,9 @@ import genDiff from 'gendiff';
 const diff = genDiff(filepath1, filepath2, format);
 console.log(diff);
 ```
+## Supported file types
+Gendiff supports `json` `yml` `yaml` files
+(example comparing `yaml` files [ASCIINEMA](https://asciinema.org/a/2CkYibYuvyxenPjyTCzd8qjBX))
 
 Formats supported are `'json'`, `'yaml'`, `'yml'`, `'text'`
 The default format is `'text'`

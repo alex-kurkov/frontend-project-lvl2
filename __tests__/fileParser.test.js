@@ -15,6 +15,8 @@ test('path reading test', async () => {
 });
 
 test('file parsing test', async () => {
-  const path = await getFixturePath('file1.json');
-  expect(fileParser(path)).toHaveProperty("proxy", "123.234.53.22");
+  const path1 = await getFixturePath('file1.json');
+  const path2 = await getFixturePath('example2.yaml')
+  expect(fileParser(path1)).toHaveProperty("proxy", "123.234.53.22");
+  expect(fileParser(path2)).toHaveProperty("timeout", 20);
 });

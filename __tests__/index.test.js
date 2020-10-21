@@ -19,3 +19,13 @@ test('comparing json files', async () => {
   expect(getDifference(path1, path2, 'text')).not.toHaveLength(0);
   expect(getDifference(path1, path2)).toMatch(/\+ timeout/);
 });
+
+test('comparing yaml files', async () => {
+  const path1 = await getFixturePath('example1.yaml');
+  const path2 = await getFixturePath('example2.yaml');
+  const json = await readFile('expected_json.json');
+  expect(getDifference(path1, path2)).toBeTruthy();
+  expect(getDifference(path1, path2, 'json')).toEqual(json.trim());
+  expect(getDifference(path1, path2, 'text')).not.toHaveLength(0);
+  expect(getDifference(path1, path2)).toMatch(/- follow/);
+});

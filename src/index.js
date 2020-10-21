@@ -1,8 +1,8 @@
 import fileParser from './fileParser.js';
 
 export default (path1, path2, formatOutput = 'text') => {
-  const obj1 = fileParser(path1, 'json');
-  const obj2 = fileParser(path2, 'json');
+  const obj1 = fileParser(path1);
+  const obj2 = fileParser(path2);
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   const uniqueKeys = keys2.reduce((acc, i) => {

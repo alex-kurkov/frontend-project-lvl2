@@ -1,14 +1,16 @@
 import fileParser from './fileParser.js';
 
+const uniq = (arr1, arr2) => arr1.reduce((acc, i) => {
+  if (!acc.includes(i)) return [...acc, i];
+  return acc;
+}, [...arr2]);
+
 export default (path1, path2, formatOutput = 'text') => {
   const obj1 = fileParser(path1);
   const obj2 = fileParser(path2);
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
-  const uniqueKeys = keys2.reduce((acc, i) => {
-    if (!acc.includes(i)) return [...acc, i];
-    return acc;
-  }, [...keys1]);
+  const uniqueKeys = uniq(keys1, keys2);
 
   const result = uniqueKeys.reduce((acc, key) => {
     const bothHaveKey = `  ${key}`;

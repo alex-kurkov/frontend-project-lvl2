@@ -1,4 +1,4 @@
-name: hexlet-check
+name: continuous integration
 
 on:
   push:

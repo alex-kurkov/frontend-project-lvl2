@@ -1,11 +1,4 @@
-const formatter2 = (object, format = 'stylish') => {
-      return stringify(object, format);
-}
-
-
-const stringify = (value) => {
-  const renderPrefix = '  ';
-
+export default (value, renderPrefix = '  ') => {
   const iter = (currentValue, depth) => {
     if (typeof currentValue !== 'object') {
       return currentValue.toString();
@@ -22,12 +15,9 @@ const stringify = (value) => {
       const keyArr = key.split(' ');
       const unprefixedKey = keyArr.pop();
       const prefixIndicator = keyArr.shift(); // may be '+','-' or ''
-      let keyPrefixer = '';
-      if (prefixIndicator !== '') {
-        keyPrefixer = `${deepIndent.slice(0, -2)}${prefixIndicator} `;
-      } else {
-        keyPrefixer = deepIndent;
-      }
+      const keyPrefixer = (prefixIndicator !== '') 
+        ? `${deepIndent.slice(0, -2)}${prefixIndicator} `
+        : deepIndent;
 
       return `${deepIndent}${keyPrefixer}${unprefixedKey}: ${iter(val, deepIndentSize)}`
     });
@@ -41,4 +31,3 @@ const stringify = (value) => {
   
   return iter(value, 0);
 };
-export default formatter2;

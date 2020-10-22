@@ -23,7 +23,7 @@ gendiff.parse(process.argv);
 const __workingDirectory = process.cwd();
 const absolutePaths = gendiff.args.map((arg) => path.resolve(__workingDirectory, path.normalize(arg)));
 
-const format = gendiff.format || 'text';
+const format = gendiff.format;
 
 const diff = getDifference(absolutePaths[0], absolutePaths[1], format);
 console.log(diff);

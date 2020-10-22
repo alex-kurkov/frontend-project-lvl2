@@ -1,4 +1,4 @@
-const formatter = (object, format) => {
+const formatter = (object, format = 'stylish') => {
   switch (format) {
     case 'json':
       return JSON.stringify(object, null, ' ');

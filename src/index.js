@@ -1,10 +1,10 @@
 import fileParser from './fileParser.js';
 import formatter from './formatter.js';
 
-const uniq = (arr1, arr2) => arr1.reduce((acc, i) => {
+const uniq = (arr1, arr2) => arr2.reduce((acc, i) => {
   if (!acc.includes(i)) return [...acc, i];
   return acc;
-}, [...arr2]);
+}, [...arr1]);
 
 export default (path1, path2, formatOutput = 'stylish') => {
   const obj1 = fileParser(path1);

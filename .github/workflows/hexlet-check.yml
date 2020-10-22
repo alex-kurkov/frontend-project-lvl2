@@ -1,30 +1,15 @@
-name: continuous integration
+name: hexlet-check
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Hexlet project check
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-      - name: npm install, build
-        run: |
-          make install
-        env:
-          CI: true
-      - name: Run linter
-        run: |
-          make lint
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.4
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-          debug: true
+        uses: hexlet/project-action@release

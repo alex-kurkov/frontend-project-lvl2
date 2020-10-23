@@ -29,11 +29,18 @@ test('comparing floor yaml files', async () => {
   expect(getDifference(path1, path2)).toMatch(/- follow/);
 });
 
-test('comparing nested files', async () => {
+test('comparing files with nested data', async () => {
   const path1 = await getFixturePath('nestedfile1.json');
   const path2 = await getFixturePath('nestedfile2.json');
   const result = await readFile('stylishnestedresult');
   expect(getDifference(path1, path2)).toEqual(result.trim());
   expect(getDifference(path1, path2)).not.toHaveLength(0);
   expect(getDifference(path1, path2)).toMatch(/\+ setting4: blah blah/);
+});
+
+test('checking plain render', async () => {
+  const path1 = await getFixturePath('nestedfile1.json');
+  const path2 = await getFixturePath('nestedfile2.json');
+  const result = await readFile('plainrender');
+  expect(getDifference(path1, path2, 'plain')).toEqual(result.trim());
 });

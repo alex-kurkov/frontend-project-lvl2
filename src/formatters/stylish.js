@@ -28,13 +28,13 @@ export default (value, renderPrefix = '  ') => {
     .entries(currentValue)
     .map(([key, val]) => {
       const keyArr = key.split(' ');
-      const unprefixedKey = keyArr.pop();
+      const property = keyArr.pop();
       const prefixIndicator = keyArr.shift(); // may be '+','-' or undefined
       const keyPrefixer = (prefixIndicator !== undefined)
         ? `${deepIndent.slice(0, -2)}${prefixIndicator} `
         : deepIndent;
 
-      return `${deepIndent}${keyPrefixer}${unprefixedKey}: ${iter(val, deepIndentSize)}`
+      return `${deepIndent}${keyPrefixer}${property}: ${iter(val, deepIndentSize)}`
     });
     
     return [

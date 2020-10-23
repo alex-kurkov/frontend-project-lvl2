@@ -3,8 +3,7 @@ import formatter from './formatters/index.js';
 
 const uniq = (arr1, arr2) => arr2
   .reduce((acc, i) => {
-    if (!acc.includes(i)) return [...acc, i];
-    return acc;
+    return (acc.includes(i)) ? acc : [...acc, i];
   }, [...arr1])
   .sort();
 
@@ -12,7 +11,6 @@ const comparer = (object1, object2) => {
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
   const uniqueKeys = uniq(keys1, keys2);
-
   const compared = uniqueKeys.reduce((acc, key) => {
     const bothHaveKey = key;
     const firstOnlyKey = `- ${key}`;

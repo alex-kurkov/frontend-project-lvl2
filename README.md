@@ -66,12 +66,11 @@ console.log(diff);
 ```
 Gendiff supports output in `json`, `stylish` or `plain` formats. `stylish` is set by default. Example of [`plain` and 'stylish' output](https://asciinema.org/a/LhSpGzdBAzrnlUW9rD1ZCAeIU)
 
-## Supported file types
+## Supported input file types
 Gendiff supports `json` `yml` `yaml` files
 (example comparing `yaml` files [ASCIINEMA](https://asciinema.org/a/2CkYibYuvyxenPjyTCzd8qjBX))
 
-Formats supported are `'json'`, `'yaml'`, `'yml'`, `'text'`
-The default format is `'text'`
+Formats supported are `'json'`, `'yaml'`, `'yml'`, plain text
 
  
 --------

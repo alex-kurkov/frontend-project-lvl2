@@ -55,15 +55,17 @@ Output format can be set by using `-f` or `--format` flag when using on command 
 ```bash
 gendiff ./path/to/myfile1.json ./path/to/myfile2.json --format json
 ```
-(example [ASCIINEMA](https://asciinema.org/a/mBU32SwyvMaYdptjJ12lrL99Q))
+Example of [json output](https://asciinema.org/a/1667udLqWTVRN0sHhdWuSzcD5)
 
 or may be specified as the *third* parameter when used as a js-library function. In this case it should be `string`
 ```js
 import genDiff from 'gendiff';
 
-const diff = genDiff(filepath1, filepath2, format);
+const diff = genDiff(filepath1, filepath2, 'plain');
 console.log(diff);
 ```
+Gendiff supports output in `json`, `stylish` or `plain` formats. `stylish` is set by default. Example of [`plain` and 'stylish' output](https://asciinema.org/a/LhSpGzdBAzrnlUW9rD1ZCAeIU)
+
 ## Supported file types
 Gendiff supports `json` `yml` `yaml` files
 (example comparing `yaml` files [ASCIINEMA](https://asciinema.org/a/2CkYibYuvyxenPjyTCzd8qjBX))

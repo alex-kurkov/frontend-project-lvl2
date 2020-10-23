@@ -4,7 +4,7 @@ import plainStringify from './plain.js'
 export default (object, format = 'stylish') => {
   switch (format) {
     case 'json':
-      return JSON.stringify(object, null, '  ');
+      return JSON.stringify(object, null, '');
     case 'plain':
       return plainStringify(object);
     default:

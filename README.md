@@ -2,10 +2,9 @@
 **FRONTEND-PROJECT Lvl 2**
 
 ### Hexlet tests and linter status:
-![Actions Status](/workflows/hexlet-check/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/85303ccfa256cfbe3cdb/maintainability)](https://codeclimate.com/github/alex-kurkov/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/85303ccfa256cfbe3cdb/test_coverage)](https://codeclimate.com/github/alex-kurkov/frontend-project-lvl2/test_coverage)
-[![Node CI](https://github.com/alex-kurkov/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/alex-kurkov/frontend-project-lvl2/actions)
+[![Actions Status](https://github.com/alex-kurkov/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/alex-kurkov/frontend-project-lvl2/actions)
 
 ### **Content**
   - [Installation](#installation)
@@ -55,7 +54,7 @@ Output format can be set by using `-f` or `--format` flag when using on command 
 ```bash
 gendiff ./path/to/myfile1.json ./path/to/myfile2.json --format json
 ```
-Example of [json output](https://asciinema.org/a/1667udLqWTVRN0sHhdWuSzcD5)
+Example of [json output](https://asciinema.org/a/Q7jM7dmSeA3JD1him6ny4zr0f)
 
 or may be specified as the *third* parameter when used as a js-library function. In this case it should be `string`
 ```js

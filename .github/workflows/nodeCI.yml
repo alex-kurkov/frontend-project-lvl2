@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Hexlet project check
-        uses: hexlet/project-action@release
       - name: Node CI check, setup node
         uses: actions/setup-node@v1
         with:

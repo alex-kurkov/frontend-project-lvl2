@@ -44,3 +44,10 @@ test('checking plain render', async () => {
   const result = await readFile('plainrender');
   expect(getDifference(path1, path2, 'plain')).toEqual(result.trim());
 });
+
+test('checking stylish output + array render', async () => {
+  const path1 = await getFixturePath('file1.json');
+  const path2 = await getFixturePath('file3.json');
+  const after = await readFile('arraystylishcheck');
+  expect(getDifference(path1, path2)).toEqual(after.trim());
+});

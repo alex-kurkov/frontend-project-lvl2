@@ -1,48 +1,44 @@
-export default (value, renderPrefix = '  ') => {
-  const iter = (currentValue, depth) => {
+const prefixIndicators = { added: '+', removed: '-', immuted: ' ' };
+const stylishPrefix = '  ';
+const getType = (obj) => obj['type'];
+const getChildren = (obj) => obj['children'];
+const getValue = (obj) => obj['value'];
+const getName = (obj) => obj['name'];
+
+const  stylish = (arr, depth = 0) => {
+
+  const deepIndentSize = depth + 1;
+  const currentIndent = stylishPrefix.repeat(depth).repeat(2); // blank space before '}'
+  
+  const iter = (currentValue) => {
+
     if (typeof currentValue !== 'object') {
       return currentValue.toString();
     }
     if (currentValue === null) return 'null';
 
-    const deepIndentSize = depth + 1;
-    const deepIndent = renderPrefix.repeat(deepIndentSize);
-    const currentIndent = renderPrefix.repeat(depth) + renderPrefix.repeat(depth);
-    
-    if (Array.isArray(currentValue)) {
-      const lines = currentValue
-        .flatMap((val) => {
-          if (typeof val !== 'object' || value === null) {
-            return `${deepIndent.repeat(2)}${val}`
-          }
-          return `${deepIndent.repeat(2)}${iter(val, deepIndentSize)}`;
-        })
-      return [
-        '[',
-        ...lines,
-        `${currentIndent}]`,
-      ].join('\n');
+    const currentType = getType(currentValue);
+    const property = getName(currentValue);
+    const children = getChildren(currentValue);
+    const value = (getValue(currentValue) !== undefined)
+      ? getValue(currentValue)
+      : stylish(children, deepIndentSize);
+
+    // define indent blank space and indicacor strings
+    const deepIndent = stylishPrefix.repeat(deepIndentSize);
+    const prefixIndicator = prefixIndicators[currentType];
+    const keyPrefixer = `${deepIndent.slice(0, -2)}${prefixIndicator} `;
+        
+    return `${deepIndent}${keyPrefixer}${property}: ${iter(value, deepIndentSize)}`;
     }
 
-    const lines = Object
-    .entries(currentValue)
-    .map(([key, val]) => {
-      const keyArr = key.split(' ');
-      const property = keyArr.pop();
-      const prefixIndicator = keyArr.shift(); // may be '+','-' or undefined
-      const keyPrefixer = (prefixIndicator !== undefined)
-        ? `${deepIndent.slice(0, -2)}${prefixIndicator} `
-        : deepIndent;
+  const lines = arr.flatMap((i) => iter(i));
 
-      return `${deepIndent}${keyPrefixer}${property}: ${iter(val, deepIndentSize)}`
-    });
-    
-    return [
-      '{',
-      ...lines,
-      `${currentIndent}}`,
-    ].join('\n');
-  };
-  
-  return iter(value, 0);
-};
+  return [
+    '{',
+    ...lines,
+    `${currentIndent}}`
+  ].join('\n');
+}
+
+export default stylish;

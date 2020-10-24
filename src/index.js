@@ -72,7 +72,6 @@ const comparer = (object1, object2) => {
     }
     return acc;
     }, []);
-
   return diff;
 };
 

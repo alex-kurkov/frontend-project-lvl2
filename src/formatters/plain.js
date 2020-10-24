@@ -1,3 +1,12 @@
+const getType = (obj) => obj['type'];
+const getChildren = (obj) => obj['children'];
+const getValue = (obj) => obj['value'];
+const getName = (obj) => obj['name'];
+const isUpdated = (obj) => {
+  return obj['updated'] ? obj['updated'] : false;
+}
+const getPreviousValue = (obj) => obj['updatedFrom'];
+
 const generateMessage = (action, property, value1 = '', value2 = '') => {
   switch (action) {
     case 'remove':
@@ -19,39 +28,47 @@ const stringifyValue = (value) => {
       return `${value}`;
   }
 }
-const plain = (object) => {
 
+const plain = (tree, path = '') => {
   const iter = (currentValue, currentPath) => {
-    const lines = Object
-      .entries(currentValue)
-      .reduce((acc, item, index, arr) => {
-        const [key, currentValue] = item;
-        const [nextKey, nextValue] = arr[index + 1] ? arr[index + 1] : [];
-        const previousKey = arr[index - 1] ? arr[index - 1].shift() : null;
-        const keyArr = key.split(' ');
-        const property = keyArr.pop();
-        const currentPropertyPath = `${currentPath}${property}`;
-        const prefixIndicator = keyArr.shift(); // may be '+','-' or undefined
-        const isComplexCurrentValue = typeof currentValue === 'object' && currentValue !== null;
+    const type = getType(currentValue);
+    const children = getChildren(currentValue);
+    const updated = isUpdated(currentValue);
+    const property = getName(currentValue);
+    const currentPropertyPath = `${currentPath}${property}`;
+    const value = getValue(currentValue);
+    const previousValue = getPreviousValue(currentValue);
 
-        if (!prefixIndicator && !isComplexCurrentValue) return acc;
-        if (!prefixIndicator && isComplexCurrentValue) {
-          return [...acc, ...iter(currentValue, `${currentPropertyPath}.`)];
-        }
-        if (prefixIndicator === '-') {
-          const message = nextKey !== `+ ${property}`
-            ? generateMessage('remove', currentPropertyPath, stringifyValue(currentValue))
-            : generateMessage('update', currentPropertyPath, stringifyValue(currentValue), stringifyValue(nextValue))
-          return [...acc, message];
-        }
-        if (prefixIndicator === '+' && previousKey !== `- ${property}`) {
-          return [...acc, generateMessage('add', currentPropertyPath, stringifyValue(currentValue))]
-        }
-        return acc;
-      }, [])
-    return lines;
-  } 
-  return iter(object, '').join('\n');
+    if (type === 'immuted' && !children) return;
+
+    if (type === 'immuted' && children) {
+      return plain(children, `${currentPropertyPath}.`)
+    }
+
+    if (type === 'removed' && !updated) {
+      return generateMessage(
+        'remove', 
+        currentPropertyPath,
+        stringifyValue(value));
+    }
+    if (type === 'added' && updated) {
+      const valueToRender =  (children) ? children : value;
+      return generateMessage(
+        'update',
+        currentPropertyPath,
+        stringifyValue(previousValue),
+        stringifyValue(valueToRender))
+    } 
+    if (type === 'added' && !updated) {
+      const valueToRender =  (children) ? children : value;
+      return generateMessage(
+        'add',
+        currentPropertyPath,
+        stringifyValue(valueToRender))
+    }
+  }
+  const lines = tree.flatMap((i) => iter(i, path)).filter((i) => i);
+  return lines.join('\n');
 }
 
 export default plain;

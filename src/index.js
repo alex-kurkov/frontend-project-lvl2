@@ -50,6 +50,9 @@ const comparer = (object1, object2) => {
     }
     if (Object.prototype.hasOwnProperty.call(object1, key)) {
       node['type'] = 'removed';
+      if (value2 || value2 === null || value2 === '') {
+        node['updated'] = true;
+      }
 
       if (value1 !== null && typeof value1 === 'object') {
           node[`children`] = setImmutableChildrenNodes(value1);
@@ -61,7 +64,10 @@ const comparer = (object1, object2) => {
     if (Object.prototype.hasOwnProperty.call(object2, key)) {
       const node2 = { name: key, type: 'added'};
 
-      if (value1) node2['upgradedFrom'] = value1;
+      if (value1 || value1 === null || value1 === '') {
+        node2['updated'] = true;
+        node2['updatedFrom'] = value1;
+      }
 
       if (value2 !== null && typeof value2 === 'object') {
           node2[`children`] = setImmutableChildrenNodes(value2);

@@ -28,6 +28,13 @@ const stringifyValue = (value) => {
       return `${value}`;
   }
 }
+const actionMethodSwitcher = (type, children, updated) => {
+  if (type === 'immuted' && !children) return 'ignore';
+  if (type === 'immuted' && children) return 'goDeeper';
+  if (type === 'removed' && !updated) return 'renderRemove';
+  if (type === 'added' && updated) return 'renderUpdate';
+  if (type === 'added' && !updated) return 'renderAdd';
+}
 
 const plain = (tree, path = '') => {
   const iter = (currentValue, currentPath) => {
@@ -38,33 +45,20 @@ const plain = (tree, path = '') => {
     const currentPropertyPath = `${currentPath}${property}`;
     const value = getValue(currentValue);
     const previousValue = getPreviousValue(currentValue);
+    const valueToRender =  (children) ? children : value;
+    const actionMethod = actionMethodSwitcher(type, children, updated);
 
-    if (type === 'immuted' && !children) return;
-
-    if (type === 'immuted' && children) {
-      return plain(children, `${currentPropertyPath}.`)
-    }
-
-    if (type === 'removed' && !updated) {
-      return generateMessage(
-        'remove', 
-        currentPropertyPath,
-        stringifyValue(value));
-    }
-    if (type === 'added' && updated) {
-      const valueToRender =  (children) ? children : value;
-      return generateMessage(
-        'update',
-        currentPropertyPath,
-        stringifyValue(previousValue),
-        stringifyValue(valueToRender))
-    } 
-    if (type === 'added' && !updated) {
-      const valueToRender =  (children) ? children : value;
-      return generateMessage(
-        'add',
-        currentPropertyPath,
-        stringifyValue(valueToRender))
+    switch (actionMethod) {
+      case 'ignore':
+        return;
+      case 'goDeeper':
+        return plain(children, `${currentPropertyPath}.`);
+      case 'renderRemove':
+        return generateMessage('remove', currentPropertyPath, stringifyValue(value));
+      case 'renderUpdate':
+        return generateMessage('update', currentPropertyPath, stringifyValue(previousValue), stringifyValue(valueToRender))
+      case 'renderAdd':
+        return generateMessage('add', currentPropertyPath, stringifyValue(valueToRender))
     }
   }
   const lines = tree.flatMap((i) => iter(i, path)).filter((i) => i);

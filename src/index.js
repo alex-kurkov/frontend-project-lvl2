@@ -6,7 +6,6 @@ import formatter from './formatters/index.js';
 const setImmutableChildrenNodes = (object) => {
   return Object
     .keys(object)
-    .sort()
     .reduce((acc, key) => {
       const node = { name: key, type: 'immuted' };
       const value = object[key];
@@ -50,7 +49,7 @@ const comparer = (object1, object2) => {
     }
     if (Object.prototype.hasOwnProperty.call(object1, key)) {
       node['type'] = 'removed';
-      if (value2 || value2 === null || value2 === '') {
+      if (Object.prototype.hasOwnProperty.call(object2, key)) {
         node['updated'] = true;
       }
 
@@ -64,7 +63,7 @@ const comparer = (object1, object2) => {
     if (Object.prototype.hasOwnProperty.call(object2, key)) {
       const node2 = { name: key, type: 'added'};
 
-      if (value1 || value1 === null || value1 === '') {
+      if (Object.prototype.hasOwnProperty.call(object1, key)) {
         node2['updated'] = true;
         node2['updatedFrom'] = value1;
       }

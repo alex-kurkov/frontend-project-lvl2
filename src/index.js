@@ -43,15 +43,12 @@ const handleNodeAdd = (object1, object2, key, value1, value2, acc) => {
     }
     acc.push(node);
   }
-
   if (hasKey(object2, key)) {
     const node2 = { name: key, type: 'added' };
-
     if (hasKey(object1, key)) {
       node2.updated = true;
       node2.updatedFrom = value1;
     }
-
     if (isRegularObject(value2)) {
       node2.children = setImmutableChildrenNodes(value2);
     } else {

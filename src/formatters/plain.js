@@ -33,7 +33,7 @@ const actionMethodSwitcher = (type, children, updated) => {
     case 'immuted':
       return children ? 'goDeeper' : 'ignore';
     case 'removed':
-      return 'renderRemove';
+      return updated ? '' : 'renderRemove';
     case 'added':
       return updated ? 'renderUpdate' : 'renderAdd';
   }
@@ -53,7 +53,7 @@ const plain = (tree, path = '') => {
 
     switch (actionMethod) {
       case 'ignore':
-        return;
+        break;
       case 'goDeeper':
         return plain(children, `${currentPropertyPath}.`);
       case 'renderRemove':

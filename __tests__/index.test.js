@@ -1,12 +1,11 @@
 import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import getDifference from '../src/index.js';
 import path from 'path';
 import fs from 'fs';
+import getDifference from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
@@ -22,7 +21,7 @@ test('comparing floor json files', async () => {
 
 test('comparing floor yaml files', async () => {
   const path1 = await getFixturePath('example1.yaml');
-  const path2 = await getFixturePath('example2.yaml');
+  const path2 = await getFixturePath('example2.yml');
   const json = await readFile('expected_json.json');
   expect(getDifference(path1, path2, 'json')).toEqual(json.trim());
   expect(getDifference(path1, path2)).not.toHaveLength(0);

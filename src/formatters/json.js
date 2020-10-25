@@ -1,8 +1,8 @@
 const prefixIndicators = { added: '+ ', removed: '- ', immuted: '' };
-const getType = (obj) => obj['type'];
-const getChildren = (obj) => obj['children'];
-const getValue = (obj) => obj['value'];
-const getName = (obj) => obj['name'];
+const getType = (obj) => obj.type;
+const getChildren = (obj) => obj.children;
+const getValue = (obj) => obj.value;
+const getName = (obj) => obj.name;
 
 const stringifyValue = (value) => {
   switch (typeof value) {
@@ -11,12 +11,11 @@ const stringifyValue = (value) => {
     default:
       return value;
   }
-}
+};
 
-const  json = (arr) => {
-
+const json = (arr) => {
   const iter = (currentValue) => {
-    if (currentValue === null) return `"null"`;
+    if (currentValue === null) return '"null"';
     if (Array.isArray(currentValue)) return json(currentValue);
     if (typeof currentValue !== 'object') return stringifyValue(currentValue);
 
@@ -28,10 +27,10 @@ const  json = (arr) => {
       : getChildren(currentValue);
 
     return `"${prefixIndicator}${property}":${iter(value)}`;
-    }
+  };
 
   const lines = arr.flatMap(iter);
   return `{${[...lines].join(',')}}`;
-}
+};
 
 export default json;

@@ -5,7 +5,7 @@ import path from 'path';
 export default (filePath) => {
   if (!filePath) return null;
   const format = path.extname(filePath);
-  const data = fs.readFileSync(filePath, 'utf-8')
+  const data = fs.readFileSync(filePath, 'utf-8');
 
   switch (format) {
     case '.yaml':
@@ -17,4 +17,4 @@ export default (filePath) => {
     default:
       return new Error('file not supported');
   }
-}
+};

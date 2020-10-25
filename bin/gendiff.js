@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-/*eslint no-undef: "error"*/
-/*eslint-env node*/
+/* eslint no-undef: "error" */
+/* eslint-env node */
 
 import commander from 'commander';
 import path from 'path';
 import getDifference from '../src/index.js';
+
 const gendiff = commander.program;
 
 gendiff
@@ -15,15 +16,16 @@ gendiff
   .usage('[options]')
   .helpOption('-h, --help', 'output usage information')
   .option('-f, --format [type]', 'output format', 'stylish')
-  .arguments('<path1> <path2>')
-
+  .arguments('<path1> <path2>');
 
 gendiff.parse(process.argv);
 
 const __workingDirectory = process.cwd();
-const absolutePaths = gendiff.args.map((arg) => path.resolve(__workingDirectory, path.normalize(arg)));
+const absolutePaths = gendiff
+  .args
+  .map((arg) => path.resolve(__workingDirectory, path.normalize(arg)));
 
-const format = gendiff.format;
+const { format } = gendiff;
 
 const diff = getDifference(absolutePaths[0], absolutePaths[1], format);
 console.log(diff);

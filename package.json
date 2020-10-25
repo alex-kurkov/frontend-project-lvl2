@@ -4,6 +4,7 @@
   "description": "![Actions Status](/workflows/hexlet-check/badge.svg)",
   "main": "index.js",
   "dependencies": {
+    "commander": "^6.2.0",
     "js-yaml": "^3.14.0"
   },
   "bin": {
@@ -16,7 +17,6 @@
     "@babel/preset-env": "^7.12.1",
     "@jest/globals": "^26.6.0",
     "babel-jest": "^26.6.0",
-    "commander": "^6.1.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",

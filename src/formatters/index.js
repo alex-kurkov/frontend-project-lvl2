@@ -10,5 +10,5 @@ export default (object, format = 'stylish') => {
       return plainStringify(object);
     default:
       return stylishStringify(object);
-    }
-}
+  }
+};

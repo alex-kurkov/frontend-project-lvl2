@@ -16,20 +16,16 @@ const stringifyValue = (value) => {
 const  json = (arr) => {
 
   const iter = (currentValue) => {
-    if (currentValue === '') return '""'; // empty string handle
     if (currentValue === null) return `"null"`;
     if (Array.isArray(currentValue)) return json(currentValue);
-    if (typeof currentValue !== 'object') {
-      return stringifyValue(currentValue);
-    }
+    if (typeof currentValue !== 'object') return stringifyValue(currentValue);
 
     const currentType = getType(currentValue);
     const prefixIndicator = prefixIndicators[currentType];
     const property = getName(currentValue);
-    const children = getChildren(currentValue);
     const value = (getValue(currentValue) !== undefined)
       ? getValue(currentValue)
-      : children;
+      : getChildren(currentValue);
 
     return `"${prefixIndicator}${property}":${iter(value)}`;
     }

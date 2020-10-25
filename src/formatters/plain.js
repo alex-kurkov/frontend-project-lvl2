@@ -29,11 +29,14 @@ const stringifyValue = (value) => {
   }
 }
 const actionMethodSwitcher = (type, children, updated) => {
-  if (type === 'immuted' && !children) return 'ignore';
-  if (type === 'immuted' && children) return 'goDeeper';
-  if (type === 'removed' && !updated) return 'renderRemove';
-  if (type === 'added' && updated) return 'renderUpdate';
-  if (type === 'added' && !updated) return 'renderAdd';
+  switch (type) {
+    case 'immuted':
+      return children ? 'goDeeper' : 'ignore';
+    case 'removed':
+      return 'renderRemove';
+    case 'added':
+      return updated ? 'renderUpdate' : 'renderAdd';
+  }
 }
 
 const plain = (tree, path = '') => {

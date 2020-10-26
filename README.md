@@ -32,7 +32,11 @@ npm link
 
 After local installation to use as a js-library import gendiff in your js-module
 ```js
-import genDiff from 'gendiff';
+// ES6 style
+import genDiff from 'gendiff.js';
+
+// or in < ES6 style
+const genDiff = require('./gendiff');
 ```
 
 ## Getting help

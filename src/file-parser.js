@@ -1,10 +1,6 @@
-import fs from 'fs';
 import yaml from 'js-yaml';
 
-export default (filePath) => {
-  if (!filePath) return new Error('no file provided');
-  const data = fs.readFileSync(filePath, 'utf-8');
-
+export default (data) => {
   try {
     return JSON.parse(data);
   } catch {

@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "commander": "^6.2.0",
-    "js-yaml": "^3.14.0"
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.20"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"

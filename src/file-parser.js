@@ -4,10 +4,10 @@ import path from 'path';
 
 export default (filePath) => {
   if (!filePath) return null;
-  const format = path.extname(filePath);
+  const extension = path.extname(filePath);
   const data = fs.readFileSync(filePath, 'utf-8');
 
-  switch (format) {
+  switch (extension) {
     case '.yaml':
       return yaml.safeLoad(data);
     case '.yml':

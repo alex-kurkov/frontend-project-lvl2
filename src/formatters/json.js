@@ -1,36 +1,21 @@
+import _ from 'lodash';
+
 const prefixIndicators = { added: '+ ', removed: '- ', immuted: '' };
-const getType = (obj) => obj.type;
-const getChildren = (obj) => obj.children;
-const getValue = (obj) => obj.value;
-const getName = (obj) => obj.name;
 
-const stringifyValue = (value) => {
-  switch (typeof value) {
-    case 'string':
-      return `"${value}"`;
-    default:
-      return value;
-  }
-};
-
-const json = (arr) => {
-  const iter = (currentValue) => {
-    if (currentValue === null) return '"null"';
-    if (Array.isArray(currentValue)) return json(currentValue);
-    if (typeof currentValue !== 'object') return stringifyValue(currentValue);
-
-    const currentType = getType(currentValue);
-    const prefixIndicator = prefixIndicators[currentType];
-    const property = getName(currentValue);
-    const value = (getValue(currentValue) !== undefined)
-      ? getValue(currentValue)
-      : getChildren(currentValue);
-
-    return `"${prefixIndicator}${property}":${iter(value)}`;
-  };
-
-  const lines = arr.flatMap(iter);
-  return `{${[...lines].join(',')}}`;
-};
+function generateObject(tree) {
+  const object = {};
+  tree.forEach((node) => {
+    const {
+      name, type, children, value,
+    } = node;
+    const prefixIndicator = prefixIndicators[type];
+    const calculatedName = `${prefixIndicator}${name}`;
+    const calculatedValue = _.hasIn(node, 'value')
+      ? value : generateObject(children);
+    object[calculatedName] = calculatedValue;
+  });
+  return object;
+}
+const json = (tree) => JSON.stringify(generateObject(tree));
 
 export default json;

@@ -2,7 +2,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 
 export default (filePath) => {
-  if (!filePath) return null;
+  if (!filePath) return new Error('no file provided');
   const data = fs.readFileSync(filePath, 'utf-8');
 
   try {

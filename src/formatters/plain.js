@@ -28,7 +28,7 @@ const stringifyValue = (value) => {
       return `${value}`;
   }
 };
-const actionMethodSwitcher = (type, children, updated) => {
+const switchActionMethod = (type, children, updated) => {
   switch (type) {
     case 'immuted':
       return children ? 'goDeeper' : 'ignore';
@@ -37,7 +37,7 @@ const actionMethodSwitcher = (type, children, updated) => {
     case 'added':
       return updated ? 'renderUpdate' : 'renderAdd';
     default:
-      return new Error('file cannot be interpreted');
+      return new Error(`cannot return method of this type: ${type}`);
   }
 };
 
@@ -51,7 +51,7 @@ const plain = (tree, path = '') => {
     const value = getValue(currentValue);
     const previousValue = getPreviousValue(currentValue);
     const valueToRender = (children) || value;
-    const actionMethod = actionMethodSwitcher(type, children, updated);
+    const actionMethod = switchActionMethod(type, children, updated);
 
     const generateMessage = () => {
       let message = '';
@@ -71,7 +71,7 @@ const plain = (tree, path = '') => {
           message = switchMessage('add', currentPropertyPath, stringifyValue(valueToRender));
           break;
         default:
-          break;
+          return null;
       }
       return message;
     };

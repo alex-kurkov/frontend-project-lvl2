@@ -7,7 +7,7 @@ const getName = (obj) => obj.name;
 
 const stylish = (arr, depth = 0) => {
   const deepIndentSize = depth + 1;
-  const currentIndent = stylishPrefix.repeat(depth).repeat(2); // blank space before '}'
+  const currentIndent = stylishPrefix.repeat(depth).repeat(2);
 
   const iter = (currentValue) => {
     if (typeof currentValue !== 'object') {
@@ -22,7 +22,6 @@ const stylish = (arr, depth = 0) => {
       ? getValue(currentValue)
       : stylish(children, deepIndentSize);
 
-    // define indent blank space and indicacor strings
     const deepIndent = stylishPrefix.repeat(deepIndentSize);
     const prefixIndicator = prefixIndicators[currentType];
     const keyPrefixer = `${deepIndent.slice(0, -2)}${prefixIndicator} `;

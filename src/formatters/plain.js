@@ -14,7 +14,7 @@ const switchMessage = (action, property, value1 = '', value2 = '') => {
     case 'update':
       return `Property '${property}' was updated. From ${value1} to ${value2}`;
     default:
-      return new Error('file cannot be interpreted');
+      return new Error(`cannot form message with these props! action: ${action}, property: ${property}`);
   }
 };
 const stringifyValue = (value) => {

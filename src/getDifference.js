@@ -1,17 +1,17 @@
 import _ from 'lodash';
 
+const isRegularObject = (value) => value !== null && typeof value === 'object';
+
 const setImmutableChildrenNodes = (object) => Object
   .entries(object)
   .reduce((acc, [key, value]) => {
     const node = { name: key, type: 'immuted' };
-    if (typeof value === 'object' && value !== null) {
+    if (isRegularObject(value)) {
       node.children = setImmutableChildrenNodes(value);
       return [...acc, node];
     }
     return [...acc, { ...node, value }];
   }, []);
-
-const isRegularObject = (value) => value !== null && typeof value === 'object';
 
 const handleNodeAdd = (object1, object2, key, value1, value2) => {
   const nodes = [];

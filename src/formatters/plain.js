@@ -1,10 +1,3 @@
-const getType = (obj) => obj.type;
-const getChildren = (obj) => obj.children;
-const getValue = (obj) => obj.value;
-const getName = (obj) => obj.name;
-const isUpdated = (obj) => (obj.updated ? obj.updated : false);
-const getPreviousValue = (obj) => obj.updatedFrom;
-
 const switchMessage = (action, property, value1 = '', value2 = '') => {
   switch (action) {
     case 'remove':
@@ -42,15 +35,14 @@ const switchActionMethod = (type, children, updated) => {
 };
 
 const plain = (tree, path = '') => {
-  const iter = (currentValue, currentPath) => {
-    const type = getType(currentValue);
-    const children = getChildren(currentValue);
-    const updated = isUpdated(currentValue);
-    const property = getName(currentValue);
-    const currentPropertyPath = `${currentPath}${property}`;
-    const value = getValue(currentValue);
-    const previousValue = getPreviousValue(currentValue);
-    const valueToRender = (children) || value;
+  const iter = (object, currentPath) => {
+    const {
+      type, children, updated, name, value, updatedFrom,
+    } = object;
+
+    const currentPropertyPath = `${currentPath}${name}`;
+    const previousValue = updatedFrom;
+    const currentValue = children || value;
     const actionMethod = switchActionMethod(type, children, updated);
 
     const generateMessage = () => {
@@ -65,10 +57,10 @@ const plain = (tree, path = '') => {
           message = switchMessage('remove', currentPropertyPath, stringifyValue(value));
           break;
         case 'renderUpdate':
-          message = switchMessage('update', currentPropertyPath, stringifyValue(previousValue), stringifyValue(valueToRender));
+          message = switchMessage('update', currentPropertyPath, stringifyValue(previousValue), stringifyValue(currentValue));
           break;
         case 'renderAdd':
-          message = switchMessage('add', currentPropertyPath, stringifyValue(valueToRender));
+          message = switchMessage('add', currentPropertyPath, stringifyValue(currentValue));
           break;
         default:
           return null;
@@ -77,7 +69,9 @@ const plain = (tree, path = '') => {
     };
     return generateMessage(actionMethod);
   };
-  const lines = tree.flatMap((i) => iter(i, path)).filter((i) => i);
+  const lines = tree
+    .flatMap((i) => iter(i, path))
+    .filter((i) => i);
   return lines.join('\n');
 };
 

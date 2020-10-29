@@ -4,12 +4,12 @@ export default (data) => {
   try {
     return JSON.parse(data);
   } catch {
-    console.log('json parsing faild, trying another parser');
+    console.log('json parsing failed, trying another parser');
   }
   try {
     return yaml.safeLoad(data);
   } catch {
-    console.log('yaml parsing faild');
+    console.log('yaml parsing failed');
   }
-  return new Error('cannot read file');
+  return new Error('cannot parse data');
 };
